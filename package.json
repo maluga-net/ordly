@@ -1,0 +1,23 @@
+{
+  "name": "ordly",
+  "version": "1.0.0",
+  "description": "A JavaScript library for easy creating ordered lists.",
+  "main": "src/ordly.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maluga-net/ordly.git"
+  },
+  "keywords": [
+    "ordered",
+    "list"
+  ],
+  "author": "Michał Maluga <github.com@mi.maluga.net> (http://maluga.net/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maluga-net/ordly/issues"
+  },
+  "homepage": "https://github.com/maluga-net/ordly#readme"
+}
