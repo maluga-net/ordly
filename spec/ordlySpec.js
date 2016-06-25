@@ -91,88 +91,190 @@ describe('ordly', function() {
         expect(o.choose('x')).to.deep.equal(['e', 'x']);
         
     });
+    
+    it('should have two items in correct order if one item added to existing one and should be before first item', function() {
+        
+        var item = 'one';
+        var source = ['two'];
+        var destination = ['one', 'two'];
+        var chosen = [1];
 
-    it('should have two items in correct order if two items added and choosed which is more important', function() {
+        var o = new ordly.Ordly(source);
         
-        var o = new ordly.Ordly();
-        var item1 ='bar';
-        var item2 = 'foo';
-        
-        var chooseFrom = o.add(item1);
-        
+        var chooseFrom = o.add(item);
+
+        for (var i in chosen) {
+            
+            chooseFrom = o.choose(chooseFrom[chosen[i]]);
+        }
+
         expect(chooseFrom).to.be.empty;
         
-        chooseFrom = o.add(item2);
-        
-        expect(chooseFrom).to.have.length(2);
-        
-        o.choose(chooseFrom[1]);
-        
-        expect(o.get()).to.have.length(2);
-        expect(o.get()).to.deep.equal([item2, item1]);
+        expect(o.get()).to.deep.equal(destination);
     });
     
-    // it('should have two items if one item added to existing two and choosing which is more important not finished', function() {
+    it('should have two items in correct order if one item added to existing one and should be after first item', function() {
         
-    //     var o = new ordly.Ordly(['foo', 'bar']);
+        var item = 'two';
+        var source = ['one'];
+        var destination = ['one', 'two'];
+        var chosen = [0];
 
-    //     var chooseFrom = o.add('baz');
-    //     expect(chooseFrom).to.have.length(2);
-        
-    //     o.choose(chooseFrom[1]);
-        
-    //     expect(o.get()).to.have.length(2);
-    //     expect(o.get()).to.deep.equal(['foo', 'bar']);
-    // });
+        var o = new ordly.Ordly(source);
+       
+        var chooseFrom = o.add(item);
 
-    it('should have three items in correct order if one item added to existing two and choosing which is more important is finished', function() {
-        
-        var o = new ordly.Ordly(['foo','bar']);
-
-        var chooseFrom = o.add('baz');
-        expect(chooseFrom).to.have.length(2);
-        
-        o.choose(chooseFrom[1]);
-        
-        expect(o.get()).to.have.length(3);
-        expect(o.get()).to.deep.equal(['baz', 'foo', 'bar']);
-    });
-    
-    // it('should have five items in correct order if one item added to existing four and should be after first item', function() {
-        
-    //     var source = ['one','three','four', 'five'];
-    //     var destination = ['one','two', 'three','four', 'five'];
-
-    //     var o = new ordly.Ordly(source);
-
-    //     var chooseFrom = o.add('two');
-    //     expect(chooseFrom).to.have.length(2);
-        
-    //     var chooseFrom = o.choose(chooseFrom[1]);
-    //     expect(chooseFrom).to.be.empty;
-        
-    //     expect(o.get()).to.have.length(5);
-    //     expect(o.get()).to.deep.equal(destination);
-    // });
-    
-    // it('should have five items in correct order if one item added to existing four and should be before first item', function() {
-        
-    //     var item = 'one';
-    //     var source = ['two','three','four', 'five'];
-    //     var destination = ['one','two', 'three','four', 'five'];
-    //     var chosen = [1, 1];
-
-    //     var o = new ordly.Ordly(source);
-    //     var chooseFrom = o.add(item);
-
-    //     for (var i in chosen) {
+        for (var i in chosen) {
             
-    //         chooseFrom = o.choose(chooseFrom[chosen[i]]);
-    //     }
+            chooseFrom = o.choose(chooseFrom[chosen[i]]);
+        }
 
-    //     expect(chooseFrom).to.be.empty;
+        expect(chooseFrom).to.be.empty;
         
-    //     expect(o.get()).to.have.length(5);
-    //     expect(o.get()).to.deep.equal(destination);
-    // });
+        expect(o.get()).to.deep.equal(destination);
+    });
+    
+    
+    it('should have three items in correct order if one item added to existing two and should be before first item', function() {
+        
+        var item = 'one';
+        var source = ['two','three'];
+        var destination = ['one', 'two', 'three'];
+        var chosen = [1];
+
+        var o = new ordly.Ordly(source);
+        
+        var chooseFrom = o.add(item);
+
+        for (var i in chosen) {
+            
+            chooseFrom = o.choose(chooseFrom[chosen[i]]);
+        }
+
+        expect(chooseFrom).to.be.empty;
+        
+        expect(o.get()).to.deep.equal(destination);
+    });
+    
+    it('should have three items in correct order if one item added to existing two and should be after first item', function() {
+        
+        var item = 'two';
+        var source = ['one','three'];
+        var destination = ['one', 'two', 'three'];
+        var chosen = [0, 1];
+
+        var o = new ordly.Ordly(source);
+        var chooseFrom = o.add(item);
+
+        for (var i in chosen) {
+            
+            chooseFrom = o.choose(chooseFrom[chosen[i]]);
+        }
+
+        expect(chooseFrom).to.be.empty;
+        
+        expect(o.get()).to.deep.equal(destination);
+    });
+    
+    it('should have three items in correct order if one item added to existing two and should be after second item', function() {
+        
+        var item = 'three';
+        var source = ['one','two'];
+        var destination = ['one', 'two', 'three'];
+        var chosen = [0, 0];
+
+        var o = new ordly.Ordly(source);
+        var chooseFrom = o.add(item);
+
+        for (var i in chosen) {
+            
+            chooseFrom = o.choose(chooseFrom[chosen[i]]);
+        }
+
+        expect(chooseFrom).to.be.empty;
+        
+        expect(o.get()).to.deep.equal(destination);
+    });
+    
+    it('should have four items in correct order if one item added to existing three and should be before first item', function() {
+        
+        var item = 'one';
+        var source = ['two', 'three', 'four'];
+        var destination = ['one', 'two', 'three', 'four'];
+        var chosen = [1, 1];
+
+        var o = new ordly.Ordly(source);
+        var chooseFrom = o.add(item);
+
+        for (var i in chosen) {
+            
+            chooseFrom = o.choose(chooseFrom[chosen[i]]);
+        }
+
+        expect(chooseFrom).to.be.empty;
+        
+        expect(o.get()).to.deep.equal(destination);
+    });
+    
+    it('should have four items in correct order if one item added to existing three and should be after first item', function() {
+        
+        var item = 'two';
+        var source = ['one', 'three', 'four'];
+        var destination = ['one', 'two', 'three', 'four'];
+        var chosen = [1, 0];
+
+        var o = new ordly.Ordly(source);
+        var chooseFrom = o.add(item);
+
+        for (var i in chosen) {
+            
+            chooseFrom = o.choose(chooseFrom[chosen[i]]);
+        }
+
+        expect(chooseFrom).to.be.empty;
+        
+        expect(o.get()).to.deep.equal(destination);
+    });
+    
+    it('should have four items in correct order if one item added to existing three and should be after second item', function() {
+        
+        var item = 'three';
+        var source = ['one', 'two', 'four'];
+        var destination = ['one', 'two', 'three', 'four'];
+        var chosen = [0, 1];
+
+        var o = new ordly.Ordly(source);
+        var chooseFrom = o.add(item);
+
+        for (var i in chosen) {
+            
+            chooseFrom = o.choose(chooseFrom[chosen[i]]);
+        }
+
+        expect(chooseFrom).to.be.empty;
+        
+        expect(o.get()).to.deep.equal(destination);
+    });
+    
+    it('should have four items in correct order if one item added to existing three and should be after third item', function() {
+        
+        var item = 'four';
+        var source = ['one', 'two', 'three'];
+        var destination = ['one', 'two', 'three', 'four'];
+        var chosen = [0, 0];
+
+        var o = new ordly.Ordly(source);
+        var chooseFrom = o.add(item);
+
+        for (var i in chosen) {
+            
+            chooseFrom = o.choose(chooseFrom[chosen[i]]);
+        }
+
+        expect(chooseFrom).to.be.empty;
+        
+        expect(o.get()).to.deep.equal(destination);
+    });
+    
+    // @TODO: check for source with 4 and 5 items
 });
