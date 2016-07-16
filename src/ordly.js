@@ -43,6 +43,12 @@ Ordly.prototype.log = function(message) {
     
 }
 
+Ordly.prototype.getHumanFriendlyIndexesString = function() {
+
+    return (this.startIndex + 1) + '/' + (this.middleIndex + 1) + '/' + (this.endIndex + 1);
+    
+}
+
 Ordly.prototype.get = function() {
     
     return this.elements;
@@ -55,7 +61,7 @@ Ordly.prototype.add = function(item) {
     this.lastChooseFrom = [];
     this.itemToAdd = item;
     
-    this.log('Adding "' + item + '" to "' + this.elements + '" (' + this.startIndex + '/' + this.middleIndex + '/' + this.endIndex + ')');
+    this.log('Adding "' + item + '" to "' + this.elements + '" (' + this.getHumanFriendlyIndexesString() + ')');
     
     if (this.elements.length > 0) {
         
@@ -68,7 +74,7 @@ Ordly.prototype.add = function(item) {
         this.elements.push(this.itemToAdd);
     }
     
-    this.log('Indexes state: ' + this.startIndex + '/' + this.middleIndex + '/' + this.endIndex);
+    this.log('Indexes state: ' + this.getHumanFriendlyIndexesString());
     
     return this.lastChooseFrom;
 }
@@ -87,11 +93,11 @@ Ordly.prototype.choose = function(item) {
         this.endIndex = this.middleIndex - 1;
     }
 
-    this.log('Indexes state before finding middle: ' + this.startIndex + '/' + this.middleIndex + '/' + this.endIndex);
+    this.log('Indexes state before finding middle: ' + this.getHumanFriendlyIndexesString());
 
     this.findMiddleIndex();
     
-    this.log('Indexes state after finding middle: ' + this.startIndex + '/' + this.middleIndex + '/' + this.endIndex);
+    this.log('Indexes state after finding middle: ' + this.getHumanFriendlyIndexesString());
     
     if(this.middleIndex < 0) {
         
@@ -99,7 +105,7 @@ Ordly.prototype.choose = function(item) {
         
         this.elements.unshift(this.itemToAdd);
         
-        this.log('Indexes state after finding middle: ' + this.startIndex + '/' + this.middleIndex + '/' + this.endIndex);
+        this.log('Indexes state after finding middle: ' + this.getHumanFriendlyIndexesString());
         
         return [];
     }

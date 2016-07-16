@@ -276,5 +276,113 @@ describe('ordly', function() {
         expect(o.get()).to.deep.equal(destination);
     });
     
-    // @TODO: check for source with 4 and 5 items
+    it('should have five items in correct order if one item added to existing four and should be after third item', function() {
+        
+        var item = 'four';
+        var source = ['one', 'two', 'three', 'five'];
+        var destination = ['one', 'two', 'three', 'four', 'five'];
+        var chosen = [0, 0, 1];
+
+        var o = new ordly.Ordly(source);
+        var chooseFrom = o.add(item);
+
+        for (var i in chosen) {
+            
+            chooseFrom = o.choose(chooseFrom[chosen[i]]);
+        }
+
+        expect(chooseFrom).to.be.empty;
+        
+        expect(o.get()).to.deep.equal(destination);
+    });
+    
+    it('should have six items in correct order if one item added to existing five and should be after first item', function() {
+        
+        var item = 'two';
+        var source = ['one', 'three', 'four', 'five', 'six'];
+        var destination = ['one', 'two', 'three', 'four', 'five', 'six'];
+        var chosen = [1, 0, 1];
+
+        var o = new ordly.Ordly(source);
+        var chooseFrom = o.add(item);
+        
+        for (var i in chosen) {
+            
+            chooseFrom = o.choose(chooseFrom[chosen[i]]);
+        }
+
+        expect(chooseFrom).to.be.empty;
+        
+        expect(o.get()).to.deep.equal(destination);
+    });
+    
+    it('should have six items in correct order if one item added to existing five and should be after second item', function() {
+        
+        var item = 'three';
+        var source = ['one', 'two', 'four', 'five', 'six'];
+        var destination = ['one', 'two', 'three', 'four', 'five', 'six'];
+        var chosen = [1, 0, 0];
+
+        var o = new ordly.Ordly(source);
+        var chooseFrom = o.add(item);
+        
+        for (var i in chosen) {
+            
+            chooseFrom = o.choose(chooseFrom[chosen[i]]);
+        }
+
+        expect(chooseFrom).to.be.empty;
+        
+        expect(o.get()).to.deep.equal(destination);
+    });
+    
+    it('should have six items in correct order if one item added to existing five and should be after last item', function() {
+        
+        var item = 'six';
+        var source = ['one', 'two', 'three', 'four', 'five'];
+        var destination = ['one', 'two', 'three', 'four', 'five', 'six'];
+        var chosen = [0, 0, 0];
+
+        var o = new ordly.Ordly(source);
+        var chooseFrom = o.add(item);
+        
+        for (var i in chosen) {
+            
+            chooseFrom = o.choose(chooseFrom[chosen[i]]);
+        }
+
+        expect(chooseFrom).to.be.empty;
+        
+        expect(o.get()).to.deep.equal(destination);
+    });
+    
+    it('should have six items in correct order if two items added to existing five, but for one choosing process was abandoned', function() {
+        
+        var item1 = 'one1';
+        var item2 = 'one2'
+        var source = ['two', 'three', 'four', 'five', 'six'];
+        var destination = ['one2', 'two', 'three', 'four', 'five', 'six'];
+        var chosen1 = [1];
+        var chosen2 = [1, 1];
+
+        var o = new ordly.Ordly(source);
+        var chooseFrom = o.add(item1);
+        
+        for (var i in chosen1) {
+            
+            chooseFrom = o.choose(chooseFrom[chosen1[i]]);
+        }
+
+        chooseFrom = o.add(item2);
+        
+        for (var i in chosen2) {
+            
+            chooseFrom = o.choose(chooseFrom[chosen2[i]]);
+        }
+
+        expect(chooseFrom).to.be.empty;
+        
+        expect(o.get()).to.deep.equal(destination);
+    });
+    
 });
