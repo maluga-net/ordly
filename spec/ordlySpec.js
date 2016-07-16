@@ -385,4 +385,52 @@ describe('ordly', function() {
         expect(o.get()).to.deep.equal(destination);
     });
     
+    describe('Given I have ordly initialzed with five items' , function() {
+        
+        var item1 = 'one1';
+        var item2 = 'one2'
+        var source = ['two', 'three', 'four', 'five', 'six'];
+        var destination = ['one2', 'two', 'three', 'four', 'five', 'six'];
+        var chosen1 = [1];
+        var chosen2 = [1, 1];
+        var chooseFrom;
+        
+        var o = new ordly.Ordly(source);
+        
+        it('When I add item ' + item1, function() {
+            
+            chooseFrom = o.add(item1);
+        });
+        
+        it('And abandon choosing process', function() {
+            
+            for (var i in chosen1) {
+            
+                chooseFrom = o.choose(chooseFrom[chosen1[i]]);
+            }
+            
+            expect(chooseFrom).to.not.be.empty;
+        });
+        
+        it('And add item ' + item2, function() {
+            
+            chooseFrom = o.add(item2);
+        });
+        
+        it('And finish choosing process', function() {
+            
+           for (var i in chosen2) {
+            
+                chooseFrom = o.choose(chooseFrom[chosen2[i]]);
+            }
+
+            expect(chooseFrom).to.be.empty;
+        });
+        
+        it('Then ordly will contain six items in correct order', function() {
+            
+            expect(o.get()).to.deep.equal(destination);
+        });
+    });
+    
 });
